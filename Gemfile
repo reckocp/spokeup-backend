@@ -54,5 +54,4 @@ end
 gem 'faker'
 gem 'puma'
 gem 'bcrypt'
-gem 'responders'
 gem 'rails_admin'

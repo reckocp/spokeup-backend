@@ -1,30 +1,29 @@
 class Api::NeighborhoodsController < ApplicationController
   protect_from_forgery with: :null_session
-  respond_to :json
 
   def index
-    respond_with @neighborhoods = Neighborhood.all
+    render json: @neighborhoods = Neighborhood.all
   end
 
   def show
     @neighborhood = get_neighborhood
-    respond_with @neighborhood
+    render json: @neighborhood.to_json(include: :votes, methods: [:avg_ease, :avg_amenities, :avg_safety])
   rescue ActiveRecord::RecordNotFound
     error_not_found
   end
 
   def new
-    respond_with @neighborhood = Neighborhood.new
+    render json: @neighborhood = Neighborhood.new
   end
 
   def create
-    respond_with @neighborhood = Neighborhood.update(params[:id], neighborhood_params)
+    render json: @neighborhood = Neighborhood.update(params[:id], neighborhood_params)
 
     @neighborhood.save!
   end
 
   def edit
-    respond_with @neighborhood
+    render json: @neighborhood
   rescue ActiveRecord::RecordNotFound
     error_not_found
   end
@@ -33,13 +32,13 @@ class Api::NeighborhoodsController < ApplicationController
     @neighborhood = get_neighborhood
     @neighborhood.update(neighborhood_params)
 
-    respond_with @neighborhood
+    render json: @neighborhood
   end
 
   def destroy
     @neighborhood.destroy
 
-    respond_with @neighborhood.destroy
+    render json: @neighborhood.destroy
 
   rescue ActiveRecord::RecordNotFound
     error_not_found

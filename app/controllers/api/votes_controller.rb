@@ -8,7 +8,7 @@ class Api::VotesController < ApplicationController
 
   def show
     @vote = get_vote
-    respond_with @vote
+    respond_with @vote 
   rescue ActiveRecord::RecordNotFound
     error_not_found
   end

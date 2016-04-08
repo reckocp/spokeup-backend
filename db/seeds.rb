@@ -42,10 +42,11 @@ Neighborhood.create(name: 'Galindo',
 10.times do |num|
   user = User.create!(name: Faker::Name.name,
                       age: Faker::Number.between(16,84))
-
+  10.times do
     vote = Vote.create!(ease: rand(1..5),
                         amenities: rand(1..5),
                         safety: rand(1..5),
                         user_id: user.id,
                         neighborhood_id: rand(1..10))
+  end
 end
