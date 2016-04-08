@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ease: 1
+  amenities: 1
+  safety: 1
+  user_id: 
+  neighborhood_id: 
+
+two:
+  ease: 1
+  amenities: 1
+  safety: 1
+  user_id: 
+  neighborhood_id: 
