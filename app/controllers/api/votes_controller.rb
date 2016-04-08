@@ -1,30 +1,29 @@
 class Api::VotesController < ApplicationController
   protect_from_forgery with: :null_session
-  respond_to :json
 
   def index
-    respond_with @votes = Vote.all
+    render json: @votes = Vote.all
   end
 
   def show
     @vote = get_vote
-    respond_with @vote 
+    render json: @vote
   rescue ActiveRecord::RecordNotFound
     error_not_found
   end
 
   def new
-    respond_with @vote = Vote.new
+    render json: @vote = Vote.new
   end
 
   def create
-    respond_with @vote = Vote.new(ease: params[:vote][:ease],
+    render json: @vote = Vote.new(ease: params[:vote][:ease],
                                   amenities: params[:vote][:amenities],
                                   safety: params[:vote][:safety])
   end
 
   def edit
-    respond_with @vote
+    render json: @vote
   rescue ActiveRecord::RecordNotFound
     error_not_found
   end
@@ -33,13 +32,14 @@ class Api::VotesController < ApplicationController
     @vote = get_vote
     @vote.update(vote_params)
 
-    respond_with @vote
+    render json: @vote
   end
 
   def destroy
+    @vote = get_vote
     @vote.destroy
 
-    respond_with @vote.destroy
+    render json: @vote.destroy
 
   rescue ActiveRecord::RecordNotFound
     error_not_found

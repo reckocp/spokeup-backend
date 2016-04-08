@@ -36,6 +36,7 @@ class Api::NeighborhoodsController < ApplicationController
   end
 
   def destroy
+    @neighborhood = get_neighborhood
     @neighborhood.destroy
 
     render json: @neighborhood.destroy

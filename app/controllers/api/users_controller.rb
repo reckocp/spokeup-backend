@@ -1,31 +1,30 @@
 class Api::UsersController < ApplicationController
   protect_from_forgery with: :null_session
-  respond_to :json
 
   def index
-    respond_with @users = User.all
+    render json: @users = User.all
   end
 
   def show
     @user = get_user
-    respond_with @user
+    render json:  @user
   rescue ActiveRecord::RecordNotFound
     error_not_found
   end
 
   def new
-    respond_with @user = User.new
+    render json:  @user = User.new
   end
 
   def create
-    respond_with @user = User.new(name: params[:user][:name],
+    render json: @user = User.new(name: params[:user][:name],
                                   age: params[:user][:age])
 
     @user.save!
   end
 
   def edit
-    respond_with @user
+    render json: @user
   rescue ActiveRecord::RecordNotFound
     error_not_found
   end
@@ -34,13 +33,14 @@ class Api::UsersController < ApplicationController
     @user = get_user
     @user.update(user_params)
 
-    respond_with @user
+    render json: @user
   end
 
   def destroy
+    @user = get_user
     @user.destroy
 
-    respond_with @user.destroy
+    render json: @user.destroy
 
   rescue ActiveRecord::RecordNotFound
     error_not_found

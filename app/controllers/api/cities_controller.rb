@@ -1,30 +1,29 @@
 class Api::CitiesController < ApplicationController
   protect_from_forgery with: :null_session
-  respond_to :json
 
   def index
-    respond_with @cities = City.all
+    render json: @cities = City.all
   end
 
   def show
     @city = get_city
-    respond_with @city
+    render json: @city
   rescue ActiveRecord::RecordNotFound
     error_not_found
   end
 
   def new
-    respond_with @city = City.new
+    render json: @city = City.new
   end
 
   def create
-    respond_with @city = City.new(name: params[:city][:name])
+    render json: @city = City.new(name: params[:city][:name])
 
     @city.save!
   end
 
   def edit
-    respond_with @city
+    render json: @city
   rescue ActiveRecord::RecordNotFound
     error_not_found
   end
@@ -33,13 +32,14 @@ class Api::CitiesController < ApplicationController
     @city = get_city
     @city.update(city_params)
 
-    respond_with @city
+    render json: @city
   end
 
   def destroy
+    @city = get_city
     @city.destroy
 
-    respond_with @city.destroy
+    render json: @city.destroy
 
   rescue ActiveRecord::RecordNotFound
     error_not_found
