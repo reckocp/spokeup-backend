@@ -31,7 +31,7 @@ class Api::UsersController < ApplicationController
 
   def update
     @user = get_user
-    @user.update(user_params)
+    @user.update!(user_params)
 
     render json: @user
   end
@@ -52,7 +52,7 @@ private
   end
 
   def user_params
-    params.require(:user).permit(:name)
+    params.require(:user).permit(:name, :age)
   end
 
   def error_not_found
