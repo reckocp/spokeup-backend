@@ -2,7 +2,7 @@ class Api::NeighborhoodsController < ApplicationController
   protect_from_forgery with: :null_session
 
   def index
-    render json: @neighborhoods = Neighborhood.all
+    render json: @neighborhoods = Neighborhood.all.to_json(include: :votes, methods: [:avg_ease, :avg_amenities, :avg_safety])
   end
 
   def show

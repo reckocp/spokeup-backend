@@ -20,6 +20,7 @@ class Api::VotesController < ApplicationController
     render json: @vote = Vote.new(ease: params[:vote][:ease],
                                   amenities: params[:vote][:amenities],
                                   safety: params[:vote][:safety])
+    @vote.save!                              
   end
 
   def edit
